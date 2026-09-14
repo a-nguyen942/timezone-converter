@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Time Converter</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
+  <script type="module" src="js/main.js"></script>
 </head>
 <body>
   <div class="screen">
     <div class="time-card time-card-left">
         <div class="location-search-bar">
-          <div class="search-bar search-bar-country">Country</div>
+          <input class="search-bar search-bar-country" type="search" placeholder="Country" aria-label="Search for a country" autocomplete="off">
+          <div class="country-recommendations" role="listbox" hidden></div>
           <div class="location-search-divider" aria-hidden="true"></div>
           <div class="search-bar search-bar-city">City</div>
         </div>
@@ -27,7 +28,8 @@
     <div class="divider" aria-hidden="true"></div>
     <div class="time-card time-card-right">
         <div class="location-search-bar">
-          <div class="search-bar search-bar-country">Country</div>
+          <input class="search-bar search-bar-country" type="search" placeholder="Country" aria-label="Search for a country" autocomplete="off">
+          <div class="country-recommendations" role="listbox" hidden></div>
           <div class="location-search-divider" aria-hidden="true"></div>
           <div class="search-bar search-bar-city">City</div>
         </div>
