@@ -35,6 +35,45 @@ body {
   text-align: left;
 }
 
+.location-search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  background-color: #1b191f;
+  border: 1px solid #37303f;
+  border-radius: 12px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0 12px;
+  color: #817b8a;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.search-bar-country {
+  flex: 1;
+}
+
+.search-bar-city {
+  flex: 3;
+}
+
+.location-search-divider {
+  width: 1px;
+  align-self: stretch;
+  flex-shrink: 0;
+  margin-block: 9px;
+  background-color: #302c36;
+  box-shadow: none;
+}
+
 .country-row {
   display: flex;
   align-items: center;
