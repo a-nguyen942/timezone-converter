@@ -1,6 +1,13 @@
-// add in dataset of just countries to search through to avoid searching through the entire dataset of countries and cities
+// recently searched countries/cities
+let countriesCache = [];
+let citiesCache = [];
 
-// data structure to hold recently searched countries
+// holds 5 max
+let recentCountrySearches = [];
+let recentCitySearches = [];
+
+// Map where keys are country names and values are arrays of cities
+const countryCityMap = new Map();
 
 // called from main.js
 function loadSearchData(){
