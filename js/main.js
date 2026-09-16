@@ -1,3 +1,66 @@
+/*
+    TODO:
+        Work on data search design and appending the first 5 choices to our dropdownMenuContainers
+        Finish being able to select cities in the searchBar
+        Work on timezone calculation/differences
+        Add weatherAPI using longitude and latitude
+*/
+
+const appState = {
+    left: {
+        country: null,
+        city: null,
+        timezone: null
+    },
+    right: {
+        country: null,
+        city: null,
+        timezone: null
+    },
+    rightCitySelected: false // keeps right side hyphenated
+};
+
+const elements = {
+    left: {
+        // Inputs & Controls
+        card: document.querySelector('.time-card-left'),
+        countryInput: document.querySelector('.time-card-left .search-bar-country'),
+        countryClearBtn: document.querySelector('.time-card-left .country-search-wrapper .clear-search-btn'),
+        countryDropdown: document.querySelector('.time-card-left .country-recommendations'),
+
+        cityInput: document.querySelector('.time-card-left .search-bar-city'),
+        cityClearBtn: document.querySelector('.time-card-left .city-search-wrapper .clear-search-btn'),
+        cityDropdown: document.querySelector('.time-card-left .city-recommendations'),
+
+        // Display Outputs (for time/date/country/city)
+        countryInitials: document.querySelector('.time-card-left .country-initials'),
+        countryDisplay: document.querySelector('.time-card-left .country'),
+        cityDisplay: document.querySelector('.time-card-left .city'),
+        timezoneAbbr: document.querySelector('.time-card-left .timezone-abbreviation'),
+        timeDisplay: document.querySelector('.time-card-left .time'),
+        dateDisplay: document.querySelector('.time-card-left .date')
+    },
+    right: {
+        // Inputs & Controls
+        card: document.querySelector('.time-card-right'),
+        countryInput: document.querySelector('.time-card-right .search-bar-country'),
+        countryClearBtn: document.querySelector('.time-card-right .country-search-wrapper .clear-search-btn'),
+        countryDropdown: document.querySelector('.time-card-right .country-recommendations'),
+
+        cityInput: document.querySelector('.time-card-right .search-bar-city'),
+        cityClearBtn: document.querySelector('.time-card-right .city-search-wrapper .clear-search-btn'),
+        cityDropdown: document.querySelector('.time-card-right .city-recommendations'),
+
+        // Display Outputs
+        countryInitials: document.querySelector('.time-card-right .country-initials'),
+        countryDisplay: document.querySelector('.time-card-right .country'),
+        cityDisplay: document.querySelector('.time-card-right .city'),
+        timezoneAbbr: document.querySelector('.time-card-right .timezone-abbreviation'),
+        timeDisplay: document.querySelector('.time-card-right .time'),
+        dateDisplay: document.querySelector('.time-card-right .date')
+    }
+};
+
 // FUNCTIONS
 /*
     function attachDropdownListeners()
@@ -33,19 +96,11 @@
 // EVENT LISTENERS
 
 
-// TODO
-// ON BOOTUP
-// check if user has selected a secondary city
-// have bool variable second_city_selected = true/false
 
-// if second_city_selected = false;
-// display special UI for right timezone, only hyphens
-// hyphens should be all the same color and sizing should be different appropriately (shorter hyphen for small font, longer hyphens for larger fonts), only appearing to show nothing is selected yet
-
-// else if second_city_selected = true;
-// display regular UI for right timezone, city, city name, country, time, weather/temp, etc.
 
 
 
 // ON BOOTUP
+// *default display*
+// hyphens on the right side till user chooses a city
 // attachDropdownListeners();
