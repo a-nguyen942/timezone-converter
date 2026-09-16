@@ -1,11 +1,51 @@
-// ui changes
+// UI
 
-// check if user has selected a secondary city
-// have bool variable second_city_selected = true/false 
+/*
+    function createSearchResultItem()
+    {
+        creates a dropdown menu box item, later to be filled with textContent calculated from functions in search.js
+    }
+*/
 
-// if second_city_selected = false; 
-// display special UI for right timezone, only hyphens
-// hyphens should be all the same color and sizing, only appearing to show nothing is selected yet
+/*
+    function displaySearchData(data)
+    {
+        goes through the data (data would be an list)
+        create  5 boxes to dom, filling their text content with the data
+    }
+*/
 
-// else if second_city_selected = true;
-// display regular UI for right timezone, city, city name, country, time, weather/temp, etc.
+/*
+    function selectDropdownChoice()
+    {
+        takes the dropdownChoice's textContent and sets it to the respective search bar's textContent
+    }
+*/
+
+/*
+    function showDropDownMenu()
+    {
+
+    }
+*/
+
+/*
+    function hideDropdownMenu()
+    {
+
+    }
+*/
+
+/*
+    function showDeleteButton()
+    {
+
+    }
+*/
+
+/*
+    function hideDeleteButton()
+    {
+
+    }
+*/
