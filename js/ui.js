@@ -1,5 +1,7 @@
 // UI
 
+export const NO_RESULTS_MESSAGE = "No matches found";
+
 /*
     function createSearchResultItem()
     {
