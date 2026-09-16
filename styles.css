@@ -14,7 +14,7 @@ body {
 .screen {
   display: flex;
   box-sizing: border-box;
-  width: min(900px, calc(100% - 32px));
+  width: min(1040px, calc(100% - 32px));
   min-height: 400px;
   margin: 32px auto;
   background-color: #19191ef2;
@@ -29,7 +29,7 @@ body {
   align-items: flex-start;
   flex: 1;
   min-width: 0;
-  margin: 48px clamp(16px, 5vw, 44px);
+  margin: 48px clamp(24px, 4vw, 40px);
   border: none;
   box-shadow: none;
   text-align: left;
@@ -52,7 +52,7 @@ body {
   display: flex;
   align-items: center;
   min-width: 0;
-  padding: 0 12px;
+  padding: 0 30px 0 12px;
   color: #817b8a;
   font-size: 0.8rem;
   letter-spacing: 0.02em;
@@ -151,6 +151,36 @@ body {
   margin-block: 9px;
   background-color: #302c36;
   box-shadow: none;
+}
+
+/* Hide default browser search clear buttons */
+.search-bar::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 8px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  color: #817b8a;
+  font-size: 1.1rem;
+  line-height: 1;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.clear-search-btn:hover {
+  color: #eae8ee;
+  background-color: #35313f;
 }
 
 .country-row {
