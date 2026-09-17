@@ -10,7 +10,7 @@ let recentCitySearches = [];
 const countryCityMap = new Map();
 
 // called from main.js
-function loadSearchData(){
+export function loadSearchData(searchInput){
     // call checkRecentSearches
     // call normalizeInput
     // call filterCountries

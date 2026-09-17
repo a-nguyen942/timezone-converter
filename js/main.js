@@ -63,6 +63,7 @@ const elements = {
 
 // FUNCTIONS
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton } from './ui.js';
+import { loadSearchData } from './search.js';
 
 function attachDropdownListeners() {
     ['left', 'right'].forEach(side => {
@@ -86,7 +87,7 @@ function attachDropdownListeners() {
                 }
             });
 
-            // listener for when focus leaves the wrapper
+            // listener for when lfocus leaves the wrapper
             wrapper.addEventListener('focusout', (event) => {
                 if (!wrapper.contains(event.relatedTarget)) {
                     hideDropdownMenu(dropdown);
@@ -95,6 +96,9 @@ function attachDropdownListeners() {
             });
 
             // listener for when user starts typing, when its typing we can call search
+            input.addEventListener('input', () => {
+                loadSearchData(input.value);
+            });
 
             // DROPDOWN BOXES
             // attach pointerdown listener on each box to account for pc and mobile, call selectDropdownChoice()
