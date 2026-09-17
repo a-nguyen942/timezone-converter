@@ -62,23 +62,53 @@ const elements = {
 };
 
 // FUNCTIONS
+import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton } from './ui.js';
+
+function attachDropdownListeners() {
+    ['left', 'right'].forEach(side => {
+        const sideElements = elements[side];
+
+        ['country', 'city'].forEach(type => {
+            const input = sideElements[`${type}Input`];
+            const clearBtn = sideElements[`${type}ClearBtn`];
+            const dropdown = sideElements[`${type}Dropdown`];
+            const wrapper = input.closest('.search-wrapper');
+
+            if (!input || !clearBtn || !dropdown || !wrapper) return;
+
+            // attach dropdown listener on search bar, when the search bar is clicked a corresponding dropdown menu is set to visible and the "x" representing the delete button appears (add a focus mode)
+            input.addEventListener('focus', () => {
+                if (input.value.trim()) {
+                    showDeleteButton(clearBtn);
+                }
+                if (dropdown.children.length > 0) {
+                    showDropdownMenu(dropdown);
+                }
+            });
+
+            // listener for when focus leaves the wrapper
+            wrapper.addEventListener('focusout', (event) => {
+                if (!wrapper.contains(event.relatedTarget)) {
+                    hideDropdownMenu(dropdown);
+                    hideDeleteButton(clearBtn);
+                }
+            });
+
+            // listener for when user starts typing, when its typing we can call search
+
+            // DROPDOWN BOXES
+            // attach pointerdown listener on each box to account for pc and mobile, call selectDropdownChoice()
+            // attach dropdown listeners for arrow keys to navigate up and down the list
+            // add an enterKey listener calls selectDropdownChoice();
+
+
+            // DELETE BUTTON
+            // add eventListener for pointerdown on delete button, if delete button is clicked call resetSearchBar
+        });
+    });
+}
+
 /*
-    function attachDropdownListeners()
-    {
-        // COUNTRY/CITY SEARCH
-        // attach dropdown listener on search bar, when the search bar is clicked a corresponding dropdown menu is set to visible and the "x" representing the delete button appears (add a focus mode)
-        // listener for one focus mode is exited, the dropdown menu disappears and the x/delete button disappears
-        // listener for when user starts typing, when its typing we can call search
-
-        // DROPDOWN BOXES
-        // attach pointerdown listener on each box to account for pc and mobile, call selectDropdownChoice()
-        // attach dropdown listeners for arrow keys to navigate up and down the list
-        // add an enterKey listener calls selectDropdownChoice();
-
-        // DELETE BUTTON
-        // add eventListener for pointerdown on delete button, if delete button is clicked call resetSearchBar
-    }
-
     function initSearch(){
         call loadSearchData from search.js
         call displaySearchData from ui.js
@@ -103,4 +133,4 @@ const elements = {
 // ON BOOTUP
 // *default display*
 // hyphens on the right side till user chooses a city
-// attachDropdownListeners();
+attachDropdownListeners();
