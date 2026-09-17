@@ -24,30 +24,18 @@ export const NO_RESULTS_MESSAGE = "No matches found";
     }
 */
 
-/*
-    function showDropDownMenu()
-    {
+export function showDropdownMenu(dropdown) {
+    dropdown.removeAttribute("hidden");
+}
 
-    }
-*/
+export function hideDropdownMenu(dropdown) {
+    dropdown.setAttribute("hidden", "");
+}
 
-/*
-    function hideDropdownMenu()
-    {
+export function showDeleteButton(button) {
+    button.style.display = "flex";
+}
 
-    }
-*/
-
-/*
-    function showDeleteButton()
-    {
-
-    }
-*/
-
-/*
-    function hideDeleteButton()
-    {
-
-    }
-*/
+export function hideDeleteButton(button) {
+    button.style.display = "none";
+}
