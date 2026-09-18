@@ -101,9 +101,54 @@ function attachDropdownListeners() {
             });
 
             // DROPDOWN BOXES
-            // attach pointerdown listener on each box to account for pc and mobile, call selectDropdownChoice()
-            // attach dropdown listeners for arrow keys to navigate up and down the list
-            // add an enterKey listener calls selectDropdownChoice();
+            dropdown.addEventListener('pointerdown', (event) => {
+                const dropdownChoice = event.target.closest('.country-recommendation, .city-recommendation');
+
+                if (!dropdownChoice || !dropdown.contains(dropdownChoice)) return;
+
+                selectDropdownChoice(dropdownChoice, input, dropdown);
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+
+                const dropdownChoices = [...dropdown.querySelectorAll('.country-recommendation, .city-recommendation')];
+
+                if (dropdownChoices.length === 0) return;
+
+                event.preventDefault();
+                showDropdownMenu(dropdown);
+
+                const choiceIndex = event.key === 'ArrowDown' ? 0 : dropdownChoices.length - 1;
+                dropdownChoices[choiceIndex].focus();
+            });
+
+            dropdown.addEventListener('keydown', (event) => {
+                if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+
+                const dropdownChoice = event.target.closest('.country-recommendation, .city-recommendation');
+
+                if (!dropdownChoice || !dropdown.contains(dropdownChoice)) return;
+
+                const dropdownChoices = [...dropdown.querySelectorAll('.country-recommendation, .city-recommendation')];
+                const currentIndex = dropdownChoices.indexOf(dropdownChoice);
+                const direction = event.key === 'ArrowDown' ? 1 : -1;
+                const nextIndex = (currentIndex + direction + dropdownChoices.length) % dropdownChoices.length;
+
+                event.preventDefault();
+                dropdownChoices[nextIndex].focus();
+            });
+
+            dropdown.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter') return;
+
+                const dropdownChoice = event.target.closest('.country-recommendation, .city-recommendation');
+
+                if (!dropdownChoice || !dropdown.contains(dropdownChoice)) return;
+
+                event.preventDefault();
+                selectDropdownChoice(dropdownChoice, input, dropdown);
+            });
 
 
             // DELETE BUTTON
