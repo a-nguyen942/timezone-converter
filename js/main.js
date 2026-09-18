@@ -77,7 +77,7 @@ function attachDropdownListeners() {
 
             if (!input || !clearBtn || !dropdown || !wrapper) return;
 
-            // attach dropdown listener on search bar, when the search bar is clicked a corresponding dropdown menu is set to visible and the "x" representing the delete button appears (add a focus mode)
+            // INPUT
             input.addEventListener('focus', () => {
                 if (input.value.trim()) {
                     showDeleteButton(clearBtn);
@@ -87,7 +87,6 @@ function attachDropdownListeners() {
                 }
             });
 
-            // listener for when lfocus leaves the wrapper
             wrapper.addEventListener('focusout', (event) => {
                 if (!wrapper.contains(event.relatedTarget)) {
                     hideDropdownMenu(dropdown);
@@ -95,9 +94,19 @@ function attachDropdownListeners() {
                 }
             });
 
-            // listener for when user starts typing, when its typing we can call search
             input.addEventListener('input', () => {
                 loadSearchData(input.value);
+            });
+
+            input.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter' || dropdown.hidden) return;
+
+                const firstDropdownChoice = dropdown.querySelector('.country-recommendation, .city-recommendation');
+
+                if (!firstDropdownChoice) return;
+
+                event.preventDefault();
+                selectDropdownChoice(firstDropdownChoice, input, dropdown);
             });
 
             // DROPDOWN BOXES
@@ -152,7 +161,10 @@ function attachDropdownListeners() {
 
 
             // DELETE BUTTON
-            // add eventListener for pointerdown on delete button, if delete button is clicked call resetSearchBar
+            clearBtn.addEventListener('pointerdown', (event) => {
+                event.preventDefault();
+                clearSearchText(input, dropdown, clearBtn);
+            });
         });
     });
 }
@@ -161,13 +173,6 @@ function attachDropdownListeners() {
     function initSearch(){
         call loadSearchData from search.js
         call displaySearchData from ui.js
-    }
-
-    function resetSearchBar()
-    {
-        clearSearchBarText();
-        hideDropdownMenu();
-        hideDeleteButton();
     }
 */
 
