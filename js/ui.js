@@ -39,3 +39,10 @@ export function showDeleteButton(button) {
 export function hideDeleteButton(button) {
     button.style.display = "none";
 }
+
+export function clearSearchText(searchBar, dropdown, button)
+    {
+        searchBar.value = "";
+        hideDropdownMenu(dropdown);
+        hideDeleteButton(button);
+    }
