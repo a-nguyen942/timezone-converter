@@ -87,7 +87,7 @@ body {
 }
 
 .city-search-wrapper {
-  flex: 3;
+  flex: 2;
 }
 
 .search-bar-city {
@@ -264,4 +264,20 @@ body {
   margin-block: 48px;
   background-color: #302c36;
   box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .screen {
+    flex-direction: column;
+  }
+
+  .time-card {
+    width: auto;
+  }
+
+  .divider {
+    width: auto;
+    height: 1px;
+    margin: 0 24px;
+  }
 }
