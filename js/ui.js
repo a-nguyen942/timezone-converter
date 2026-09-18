@@ -3,13 +3,6 @@
 export const NO_RESULTS_MESSAGE = "No matches found";
 
 /*
-    function createSearchResultItem()
-    {
-        creates a dropdown menu box item, later to be filled with textContent calculated from functions in search.js
-    }
-*/
-
-/*
     function displaySearchData(data)
     {
         goes through the data (data would be an list)
@@ -17,12 +10,10 @@ export const NO_RESULTS_MESSAGE = "No matches found";
     }
 */
 
-/*
-    function selectDropdownChoice()
-    {
-        takes the dropdownChoice's textContent and sets it to the respective search bar's textContent
-    }
-*/
+export function selectDropdownChoice(dropdownChoice, searchBar, dropdown) {
+    searchBar.value = dropdownChoice.textContent.trim();
+    hideDropdownMenu(dropdown);
+}
 
 export function showDropdownMenu(dropdown) {
     dropdown.removeAttribute("hidden");

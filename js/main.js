@@ -62,7 +62,7 @@ const elements = {
 };
 
 // FUNCTIONS
-import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton } from './ui.js';
+import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice } from './ui.js';
 import { loadSearchData } from './search.js';
 
 function attachDropdownListeners() {
