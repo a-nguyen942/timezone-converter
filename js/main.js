@@ -159,6 +159,13 @@ function attachDropdownListeners() {
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
 
+            wrapper.addEventListener('keydown', (event) => {
+                if (event.key !== 'Escape' || dropdown.hidden) return;
+
+                event.preventDefault();
+                document.activeElement.blur();
+                hideDropdownMenu(dropdown);
+            });
 
             // DELETE BUTTON
             clearBtn.addEventListener('pointerdown', (event) => {
@@ -175,14 +182,6 @@ function attachDropdownListeners() {
         call displaySearchData from ui.js
     }
 */
-
-
-// EVENT LISTENERS
-
-
-
-
-
 
 // ON BOOTUP
 // *default display*
