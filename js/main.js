@@ -95,7 +95,31 @@ function attachDropdownListeners() {
             });
 
             input.addEventListener('input', () => {
-                loadSearchData(input.value);
+                const searchText = input.value.trim();
+
+                if (type === 'country') {
+                    const countriesToDisplay = searchText
+                        ? searchCountries(searchText)
+                        : getRecentCountries(side);
+
+                    if (countriesToDisplay.length === 0) {
+                        displayNoResultsFound(dropdown);
+                    } else {
+                        loadCountries(countriesToDisplay, dropdown);
+                    }
+
+                    return;
+                }
+
+                const citiesToDisplay = searchText
+                    ? searchCities(searchText, appState[side].country)
+                    : getRecentCities(side);
+
+                if (citiesToDisplay.length === 0) {
+                    displayNoResultsFound(dropdown);
+                } else {
+                    loadCities(citiesToDisplay, dropdown);
+                }
             });
 
             input.addEventListener('keydown', (event) => {
