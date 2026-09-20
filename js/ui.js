@@ -37,3 +37,13 @@ export function clearSearchText(searchBar, dropdown, button)
         hideDropdownMenu(dropdown);
         hideDeleteButton(button);
     }
+
+function loadCountries()
+{
+
+}
+
+function loadCities()
+{
+
+}
