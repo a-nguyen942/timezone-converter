@@ -47,3 +47,8 @@ function loadCities()
 {
 
 }
+
+function displayNoResultsFound()
+{
+
+}
