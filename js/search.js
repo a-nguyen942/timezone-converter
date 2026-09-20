@@ -1,3 +1,8 @@
+let recentLeftCountry = [];
+let recentRightCountry = [];
+let recentLeftCity = [];
+let recentRightCity = [];
+
 // called from main.js
 export function loadSearchData(searchInput){
     // call checkRecentSearches
