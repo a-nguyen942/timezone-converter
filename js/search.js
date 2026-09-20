@@ -1,40 +1,30 @@
-let recentLeftCountry = [];
-let recentRightCountry = [];
-let recentLeftCity = [];
-let recentRightCity = [];
-
 // called from main.js
-export function loadSearchData(searchInput){
-    // call checkRecentSearches
-    // call normalizeInput
-    // call filterCountries
+
+function getRecentCountries()
+{
+
+}
+
+function getRecentCities()
+{
+    // pulls
+}
+
+function searchCountries(countryInput)
+{
+    // search database for countries according to userInput
+}
+
+function searchCities(country, cityInput)
+{
+    // search database for cities according to country chosen and userInput
 }
 
 // check if the search input is empty, if so have dropdown display recently searched countries/cities
 function checkRecentSearches(searchInput)
 {
     // if empty, display recent searches
-    // else call normalizeInput
 }
-
-// user starts typing and normalizeInput runs
-function normalizeInput(searchInput)
-{
-    // normalize input to all lowercase and turn any characters with accents to base characters
-    // pass normalized input to filterCountries to begin filtering through dataset of countries/cities
-}
-
-// normalized input is passed to filterCountries to begin filtering through dataset of countries/cities
-function filterCountries(normalizedInput)
-{
-    // wittle down countries that don't contain letters the user gave
-    // display this to dropdown list of countries/cities that match the input
-    // let dropdown list only be max 5 countries when we hit 5 or there are no more countries/cities return early
-    // when returning list, check if its empty
-    // if !empty return list
-    // else if empty return "No matches"
-}
-
 
 function clearSearchBarText()
 {
