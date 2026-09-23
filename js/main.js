@@ -1,6 +1,6 @@
 /*
     TODO:
-        Work on search logic
+        Work on search logic for cities
         Work on recentCountries/recentCities logic
         Finish being able to select cities in the searchBar
         Work on timezone calculation/differences
@@ -91,9 +91,17 @@ function attachDropdownListeners() {
             input.addEventListener('focus', () => {
                 if (input.value.trim()) {
                     showDeleteButton(clearBtn);
+                    return;
                 }
-                if (dropdown.children.length > 0) {
-                    showDropdownMenu(dropdown);
+
+                if (type !== 'country') {
+                    return;
+                }
+
+                const recentCountries = appState[side].recentCountries;
+
+                if (recentCountries.length > 0) {
+                    loadCountries(recentCountries, dropdown);
                 }
             });
 

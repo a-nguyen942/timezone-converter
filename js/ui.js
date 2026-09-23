@@ -44,7 +44,7 @@ export function loadCountries(countries, dropdown) {
     countryChoices.forEach((countryChoice, index) => {
         const country = countries[index];
 
-        countryChoice.textContent = country ? country.name : '';
+        countryChoice.textContent = typeof country === 'string' ? country : country ? country.name : '';
         countryChoice.hidden = !country;
         countryChoice.disabled = !country;
     });
