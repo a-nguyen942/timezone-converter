@@ -46,6 +46,7 @@ export function loadCountries(countries, dropdown) {
 
         countryChoice.textContent = country ? country.name : '';
         countryChoice.hidden = !country;
+        countryChoice.disabled = !country;
     });
 
     showDropdownMenu(dropdown);
@@ -56,7 +57,16 @@ function loadCities()
 
 }
 
-function displayNoResultsFound()
-{
+export function displayNoResultsFound(dropdown) {
+    const dropdownChoices = dropdown.querySelectorAll('.country-recommendation, .city-recommendation');
 
+    dropdownChoices.forEach((dropdownChoice, index) => {
+        const isMessageChoice = index === 0;
+
+        dropdownChoice.textContent = isMessageChoice ? NO_RESULTS_MESSAGE : '';
+        dropdownChoice.hidden = !isMessageChoice;
+        dropdownChoice.disabled = isMessageChoice;
+    });
+
+    showDropdownMenu(dropdown);
 }
