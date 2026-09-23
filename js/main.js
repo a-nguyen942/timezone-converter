@@ -145,6 +145,11 @@ function attachDropdownListeners() {
 
                 if (!dropdownChoice || !dropdown.contains(dropdownChoice)) return;
 
+                const recentSearches = type === 'country'
+                    ? appState[side].recentCountries
+                    : appState[side].recentCities;
+
+                recentSearches.push(dropdownChoice.textContent.trim());
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
 
