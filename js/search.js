@@ -8,7 +8,7 @@ export async function loadCountryIndex() {
     }
 
     if (!countryIndexLoadPromise) {
-        const countryIndexUrl = new URL('../data/countries.json', import.meta.url);
+        const countryIndexUrl = new URL('../data/countries-to-file.json', import.meta.url);
 
         countryIndexLoadPromise = fetch(countryIndexUrl)
             .then((response) => {
