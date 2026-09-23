@@ -149,6 +149,10 @@ function attachDropdownListeners() {
                     ? appState[side].recentCountries
                     : appState[side].recentCities;
 
+                if (recentSearches.length >= 5) {
+                    recentSearches.shift();
+                }
+
                 recentSearches.push(dropdownChoice.textContent.trim());
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
