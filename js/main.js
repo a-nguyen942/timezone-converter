@@ -1,6 +1,7 @@
 /*
     TODO:
-        Work on data search design and appending the first 5 choices to our dropdownMenuContainers
+        Work on search logic
+        Work on recentCountries/recentCities logic
         Finish being able to select cities in the searchBar
         Work on timezone calculation/differences
         Add weatherAPI using longitude and latitude
@@ -10,12 +11,16 @@ const appState = {
     left: {
         country: null,
         city: null,
-        timezone: null
+        timezone: null,
+        recentCountries: [],
+        recentCities: []
     },
     right: {
         country: null,
         city: null,
-        timezone: null
+        timezone: null,
+        recentCountries: [],
+        recentCities: []
     },
     rightCitySelected: false // keeps right side hyphenated
 };
@@ -63,7 +68,12 @@ const elements = {
 
 // FUNCTIONS
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice } from './ui.js';
-import { loadSearchData } from './search.js';
+import { loadCountryIndex, searchCountries } from './search.js';
+
+async function initializeApp() {
+    await loadCountryIndex();
+    attachDropdownListeners();
+}
 
 function attachDropdownListeners() {
     ['left', 'right'].forEach(side => {
@@ -98,9 +108,7 @@ function attachDropdownListeners() {
                 const searchText = input.value.trim();
 
                 if (type === 'country') {
-                    const countriesToDisplay = searchText
-                        ? searchCountries(searchText)
-                        : getRecentCountries(side);
+                    const countriesToDisplay = searchCountries(searchText);
 
                     if (countriesToDisplay.length === 0) {
                         displayNoResultsFound(dropdown);
@@ -111,9 +119,7 @@ function attachDropdownListeners() {
                     return;
                 }
 
-                const citiesToDisplay = searchText
-                    ? searchCities(searchText, appState[side].country)
-                    : getRecentCities(side);
+                const citiesToDisplay = searchCities(searchText, appState[side].country);
 
                 if (citiesToDisplay.length === 0) {
                     displayNoResultsFound(dropdown);
@@ -210,4 +216,5 @@ function attachDropdownListeners() {
 // ON BOOTUP
 // *default display*
 // hyphens on the right side till user chooses a city
-attachDropdownListeners();
+
+initializeApp();
