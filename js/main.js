@@ -116,7 +116,9 @@ function attachDropdownListeners() {
                 const searchText = input.value.trim();
 
                 if (type === 'country') {
-                    const countriesToDisplay = searchCountries(searchText);
+                    const countriesToDisplay = searchText
+                        ? searchCountries(searchText)
+                        : appState[side].recentCountries;
 
                     if (countriesToDisplay.length === 0) {
                         displayNoResultsFound(dropdown);
