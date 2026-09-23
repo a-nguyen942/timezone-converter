@@ -68,7 +68,7 @@ const elements = {
 
 // FUNCTIONS
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, displayNoResultsFound } from './ui.js';
-import { loadCountryIndex, searchCountries } from './search.js';
+import { loadCountryIndex, searchCountries, clearSearchBarText } from './search.js';
 
 async function initializeApp() {
     await loadCountryIndex();
@@ -200,7 +200,9 @@ function attachDropdownListeners() {
             // DELETE BUTTON
             clearBtn.addEventListener('pointerdown', (event) => {
                 event.preventDefault();
-                clearSearchText(input, dropdown, clearBtn);
+                clearSearchBarText(input);
+                hideDropdownMenu(dropdown);
+                hideDeleteButton(clearBtn);
             });
         });
     });

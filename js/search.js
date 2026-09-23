@@ -78,8 +78,8 @@ function checkRecentSearches(searchInput)
     // if empty, display recent searches
 }
 
-function clearSearchBarText()
+export function clearSearchBarText(searchBar)
 {
     // clears text from searchContent
-
+    searchBar.value = '';
 }
