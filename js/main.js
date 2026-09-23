@@ -89,12 +89,23 @@ function attachDropdownListeners() {
 
             // INPUT
             input.addEventListener('focus', () => {
-                if (input.value.trim()) {
-                    showDeleteButton(clearBtn);
+                if (type !== 'country') {
                     return;
                 }
 
-                if (type !== 'country') {
+                const searchText = input.value.trim();
+
+                if (searchText) {
+                    const countriesToDisplay = searchCountries(searchText);
+
+                    showDeleteButton(clearBtn);
+
+                    if (countriesToDisplay.length === 0) {
+                        displayNoResultsFound(dropdown);
+                    } else {
+                        loadCountries(countriesToDisplay, dropdown);
+                    }
+
                     return;
                 }
 
