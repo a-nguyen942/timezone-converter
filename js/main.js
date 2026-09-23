@@ -67,7 +67,7 @@ const elements = {
 };
 
 // FUNCTIONS
-import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice } from './ui.js';
+import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries } from './ui.js';
 import { loadCountryIndex, searchCountries } from './search.js';
 
 async function initializeApp() {
