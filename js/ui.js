@@ -38,9 +38,17 @@ export function clearSearchText(searchBar, dropdown, button)
         hideDeleteButton(button);
     }
 
-function loadCountries()
-{
+export function loadCountries(countries, dropdown) {
+    const countryChoices = dropdown.querySelectorAll('.country-recommendation');
 
+    countryChoices.forEach((countryChoice, index) => {
+        const country = countries[index];
+
+        countryChoice.textContent = country ? country.name : '';
+        countryChoice.hidden = !country;
+    });
+
+    showDropdownMenu(dropdown);
 }
 
 function loadCities()
