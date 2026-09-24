@@ -33,28 +33,6 @@ export async function loadCountryIndex() {
     return countryIndexLoadPromise;
 }
 
-export async function loadCities(country)
-{
-    // load city based off of the country
-    if (loadedCountryFile === country.file && loadedCities) {
-        return loadedCities;
-    }
-
-    const cityFileUrl = new URL(`../data/${country.file}`, import.meta.url);
-    const response = await fetch(cityFileUrl);
-
-    if (!response.ok) {
-        throw new Error(`Unable to load cities for ${country.name}: ${response.status}`);
-    }
-
-    const countryData = await response.json();
-
-    loadedCountryFile = country.file;
-    loadedCities = countryData.cities;
-
-    return loadedCities;
-}
-
 function normalizeInput(input) {
     return input
         .trim()
@@ -94,11 +72,24 @@ export function searchCountries(countryInput)
 export async function searchCities(country, cityInput)
 {
     // search database for cities according to country chosen and userInput
+    if (loadedCountryFile !== country.file || !loadedCities) {
+        const cityFileUrl = new URL(`../data/${country.file}`, import.meta.url);
+        const response = await fetch(cityFileUrl);
+
+        if (!response.ok) {
+            throw new Error(`Unable to load cities for ${country.name}: ${response.status}`);
+        }
+
+        const countryData = await response.json();
+
+        loadedCountryFile = country.file;
+        loadedCities = countryData.cities;
+    }
+
     const normalizedInput = normalizeInput(cityInput);
-    const cities = await loadCities(country);
     const matchingCities = [];
 
-    for (const city of cities) {
+    for (const city of loadedCities) {
         if (!city.normalizedName.startsWith(normalizedInput)) {
             continue;
         }
