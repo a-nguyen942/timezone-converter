@@ -45,8 +45,10 @@ export function loadCountries(countries, dropdown) {
         const country = countries[index];
 
         countryChoice.textContent = typeof country === 'string' ? country : country ? country.name : '';
-        countryChoice.hidden = !country;
-        countryChoice.disabled = !country;
+        const hasCountryText = countryChoice.textContent.trim() !== '';
+
+        countryChoice.hidden = !hasCountryText;
+        countryChoice.disabled = !hasCountryText;
     });
 
     showDropdownMenu(dropdown);

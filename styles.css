@@ -135,6 +135,11 @@ body {
   text-overflow: ellipsis;
 }
 
+.country-recommendation[hidden],
+.city-recommendation[hidden] {
+  display: none;
+}
+
 .country-recommendation:hover,
 .city-recommendation:hover,
 .country-recommendation:focus-visible,
