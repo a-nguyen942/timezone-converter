@@ -68,7 +68,7 @@ const elements = {
 
 // FUNCTIONS
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, displayNoResultsFound } from './ui.js';
-import { loadCountryIndex, searchCountries, clearSearchBarText } from './search.js';
+import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
 
 async function initializeApp() {
     await loadCountryIndex();
@@ -123,7 +123,7 @@ function attachDropdownListeners() {
                 }
             });
 
-            input.addEventListener('input', () => {
+            input.addEventListener('input', async () => {
                 const searchText = input.value.trim();
 
                 if (type === 'country') {
@@ -140,7 +140,11 @@ function attachDropdownListeners() {
                     return;
                 }
 
-                const citiesToDisplay = searchCities(searchText, appState[side].country);
+                if (!appState[side].country) {
+                    return;
+                }
+
+                const citiesToDisplay = await searchCities(appState[side].country, searchText);
 
                 if (citiesToDisplay.length === 0) {
                     displayNoResultsFound(dropdown);
