@@ -1,6 +1,8 @@
 // called from main.js
 let countriesByNormalizedName = null;
 let countryIndexLoadPromise = null;
+let loadedCountryFile = null;
+let loadedCities = null;
 
 export async function loadCountryIndex() {
     if (countriesByNormalizedName) {
@@ -29,6 +31,28 @@ export async function loadCountryIndex() {
     }
 
     return countryIndexLoadPromise;
+}
+
+export async function loadCities(country)
+{
+    // load city based off of the country
+    if (loadedCountryFile === country.file && loadedCities) {
+        return loadedCities;
+    }
+
+    const cityFileUrl = new URL(`../data/${country.file}`, import.meta.url);
+    const response = await fetch(cityFileUrl);
+
+    if (!response.ok) {
+        throw new Error(`Unable to load cities for ${country.name}: ${response.status}`);
+    }
+
+    const countryData = await response.json();
+
+    loadedCountryFile = country.file;
+    loadedCities = countryData.cities;
+
+    return loadedCities;
 }
 
 function normalizeInput(input) {
@@ -67,9 +91,26 @@ export function searchCountries(countryInput)
     return countries;
 }
 
-function searchCities(country, cityInput)
+export async function searchCities(country, cityInput)
 {
     // search database for cities according to country chosen and userInput
+    const normalizedInput = normalizeInput(cityInput);
+    const cities = await loadCities(country);
+    const matchingCities = [];
+
+    for (const city of cities) {
+        if (!city.normalizedName.startsWith(normalizedInput)) {
+            continue;
+        }
+
+        matchingCities.push(city);
+
+        if (matchingCities.length === 5) {
+            break;
+        }
+    }
+
+    return matchingCities;
 }
 
 // check if the search input is empty, if so have dropdown display recently searched countries/cities
