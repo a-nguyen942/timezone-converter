@@ -89,6 +89,21 @@ function saveSelectedCountry(dropdownChoice, side, type) {
     }
 }
 
+async function saveSelectedCity(dropdownChoice, side, type) {
+    if (type !== 'city' || !appState[side].country) {
+        return;
+    }
+
+    const cityName = dropdownChoice.textContent.trim();
+    const selectedCity = (await searchCities(appState[side].country, cityName))
+        .find((city) => city.name === cityName);
+
+    if (selectedCity) {
+        appState[side].city = selectedCity;
+        appState[side].timezone = selectedCity.timezone;
+    }
+}
+
 function attachDropdownListeners() {
     ['left', 'right'].forEach(side => {
         const sideElements = elements[side];
@@ -204,7 +219,7 @@ function attachDropdownListeners() {
                 }
             });
 
-            input.addEventListener('keydown', (event) => {
+            input.addEventListener('keydown', async (event) => {
                 if (event.key !== 'Enter' || dropdown.hidden) return;
 
                 const firstDropdownChoice = dropdown.querySelector('.country-recommendation, .city-recommendation');
@@ -213,11 +228,12 @@ function attachDropdownListeners() {
 
                 event.preventDefault();
                 saveSelectedCountry(firstDropdownChoice, side, type);
+                await saveSelectedCity(firstDropdownChoice, side, type);
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
             });
 
             // DROPDOWN BOXES
-            dropdown.addEventListener('pointerdown', (event) => {
+            dropdown.addEventListener('pointerdown', async (event) => {
                 const dropdownChoice = event.target.closest('.country-recommendation, .city-recommendation');
 
                 if (!dropdownChoice || !dropdown.contains(dropdownChoice)) return;
@@ -238,6 +254,7 @@ function attachDropdownListeners() {
 
                 recentSearches.push(selectedSearch);
                 saveSelectedCountry(dropdownChoice, side, type);
+                await saveSelectedCity(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
                 getCurrentTime(timezone, side);
             });
@@ -256,7 +273,7 @@ function attachDropdownListeners() {
                 dropdownChoices[choiceIndex].focus();
             });
 
-            dropdown.addEventListener('keydown', (event) => {
+            dropdown.addEventListener('keydown', async (event) => {
                 if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
 
                 const dropdownChoice = event.target.closest('.country-recommendation, .city-recommendation');
@@ -281,6 +298,7 @@ function attachDropdownListeners() {
 
                 event.preventDefault();
                 saveSelectedCountry(dropdownChoice, side, type);
+                await saveSelectedCity(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
 
