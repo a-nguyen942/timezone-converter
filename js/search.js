@@ -104,12 +104,6 @@ export async function searchCities(country, cityInput)
     return matchingCities;
 }
 
-// check if the search input is empty, if so have dropdown display recently searched countries/cities
-function checkRecentSearches(searchInput)
-{
-    // if empty, display recent searches
-}
-
 export function clearSearchBarText(searchBar)
 {
     // clears text from searchContent
