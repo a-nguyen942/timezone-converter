@@ -239,6 +239,7 @@ function attachDropdownListeners() {
                 recentSearches.push(selectedSearch);
                 saveSelectedCountry(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
+                getCurrentTime(timezone, side);
             });
 
             input.addEventListener('keydown', (event) => {
@@ -301,16 +302,5 @@ function attachDropdownListeners() {
         });
     });
 }
-
-/*
-    function initSearch(){
-        call loadSearchData from search.js
-        call displaySearchData from ui.js
-    }
-*/
-
-// ON BOOTUP
-// *default display*
-// hyphens on the right side till user chooses a city
 
 initializeApp();
