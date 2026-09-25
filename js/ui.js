@@ -54,9 +54,20 @@ export function loadCountries(countries, dropdown) {
     showDropdownMenu(dropdown);
 }
 
-function loadCities()
-{
+export function loadCities(cities, dropdown) {
+    const cityChoices = dropdown.querySelectorAll('.city-recommendation');
 
+    cityChoices.forEach((cityChoice, index) => {
+        const city = cities[index];
+
+        cityChoice.textContent = typeof city === 'string' ? city : city ? city.name : '';
+        const hasCityText = cityChoice.textContent.trim() !== '';
+
+        cityChoice.hidden = !hasCityText;
+        cityChoice.disabled = !hasCityText;
+    });
+
+    showDropdownMenu(dropdown);
 }
 
 export function displayNoResultsFound(dropdown) {
