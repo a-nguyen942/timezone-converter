@@ -102,31 +102,68 @@ function attachDropdownListeners() {
             if (!input || !clearBtn || !dropdown || !wrapper) return;
 
             // INPUT
-            input.addEventListener('focus', () => {
-                if (type !== 'country') {
-                    return;
-                }
-
+            input.addEventListener('focus', async () => {
                 const searchText = input.value.trim();
 
                 if (searchText) {
-                    const countriesToDisplay = searchCountries(searchText);
-
                     showDeleteButton(clearBtn);
+                }
 
-                    if (countriesToDisplay.length === 0) {
-                        displayNoResultsFound(dropdown);
-                    } else {
-                        loadCountries(countriesToDisplay, dropdown);
+                if (type === 'country') {
+                    if (searchText) {
+                        const countriesToDisplay = searchCountries(searchText);
+
+                        if (countriesToDisplay.length === 0) {
+                            displayNoResultsFound(dropdown);
+                        } else {
+                            loadCountries(countriesToDisplay, dropdown);
+                        }
+
+                        return;
+                    }
+
+                    const recentCountries = appState[side].recentCountries;
+
+                    if (recentCountries.length > 0) {
+                        loadCountries(recentCountries, dropdown);
                     }
 
                     return;
                 }
 
-                const recentCountries = appState[side].recentCountries;
+                if (searchText) {
+                    if (!appState[side].country) {
+                        return;
+                    }
 
-                if (recentCountries.length > 0) {
-                    loadCountries(recentCountries, dropdown);
+                    const citiesToDisplay = await searchCities(appState[side].country, searchText);
+
+                    if (citiesToDisplay.length === 0) {
+                        displayNoResultsFound(dropdown);
+                    } else {
+                        loadCities(citiesToDisplay, dropdown);
+                    }
+
+                    return;
+                }
+
+                const recentCities = appState[side].recentCities;
+
+                if (recentCities.length > 0) {
+                    loadCities(recentCities, dropdown);
+                    return;
+                }
+
+                if (!appState[side].country) {
+                    return;
+                }
+
+                const citiesToDisplay = await searchCities(appState[side].country, '');
+
+                if (citiesToDisplay.length === 0) {
+                    displayNoResultsFound(dropdown);
+                } else {
+                    loadCities(citiesToDisplay, dropdown);
                 }
             });
 
