@@ -225,12 +225,18 @@ function attachDropdownListeners() {
                 const recentSearches = type === 'country'
                     ? appState[side].recentCountries
                     : appState[side].recentCities;
+                const selectedSearch = dropdownChoice.textContent.trim();
+                const existingSearchIndex = recentSearches.indexOf(selectedSearch);
+
+                if (existingSearchIndex !== -1) {
+                    recentSearches.splice(existingSearchIndex, 1);
+                }
 
                 if (recentSearches.length >= 5) {
                     recentSearches.shift();
                 }
 
-                recentSearches.push(dropdownChoice.textContent.trim());
+                recentSearches.push(selectedSearch);
                 saveSelectedCountry(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
