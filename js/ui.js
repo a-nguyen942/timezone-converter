@@ -80,3 +80,8 @@ function setRightSideToHyphens()
 {
 
 }
+
+function displayTimeCardData(side, country, city)
+{
+
+}

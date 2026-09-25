@@ -230,6 +230,7 @@ function attachDropdownListeners() {
                 saveSelectedCountry(firstDropdownChoice, side, type);
                 await saveSelectedCity(firstDropdownChoice, side, type);
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
+                displayTimeCardData();
             });
 
             // DROPDOWN BOXES
@@ -256,7 +257,7 @@ function attachDropdownListeners() {
                 saveSelectedCountry(dropdownChoice, side, type);
                 await saveSelectedCity(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
-                getCurrentTime(timezone, side);
+                displayTimeCardData();
             });
 
             input.addEventListener('keydown', (event) => {
