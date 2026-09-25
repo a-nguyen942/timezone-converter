@@ -67,12 +67,26 @@ const elements = {
 };
 
 // FUNCTIONS
-import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, displayNoResultsFound } from './ui.js';
+import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
 
 async function initializeApp() {
     await loadCountryIndex();
     attachDropdownListeners();
+}
+
+function saveSelectedCountry(dropdownChoice, side, type) {
+    if (type !== 'country') {
+        return;
+    }
+
+    const countryName = dropdownChoice.textContent.trim();
+    const selectedCountry = searchCountries(countryName)
+        .find((country) => country.name === countryName);
+
+    if (selectedCountry) {
+        appState[side].country = selectedCountry;
+    }
 }
 
 function attachDropdownListeners() {
@@ -161,6 +175,7 @@ function attachDropdownListeners() {
                 if (!firstDropdownChoice) return;
 
                 event.preventDefault();
+                saveSelectedCountry(firstDropdownChoice, side, type);
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
             });
 
@@ -179,6 +194,7 @@ function attachDropdownListeners() {
                 }
 
                 recentSearches.push(dropdownChoice.textContent.trim());
+                saveSelectedCountry(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
 
@@ -220,6 +236,7 @@ function attachDropdownListeners() {
                 if (!dropdownChoice || !dropdown.contains(dropdownChoice)) return;
 
                 event.preventDefault();
+                saveSelectedCountry(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
             });
 
