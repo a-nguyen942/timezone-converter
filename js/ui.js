@@ -83,6 +83,14 @@ function setRightSideToHyphens()
 
 }
 
+function setLeadingText(element, value) {
+    if (element.firstChild?.nodeType === Node.TEXT_NODE) {
+        element.firstChild.textContent = value ?? '';
+    } else {
+        element.prepend(document.createTextNode(value ?? ''));
+    }
+}
+
 export function displayTimeCardData(side, appState, elements) {
     const country = appState[side].country;
     const city = appState[side].city;
@@ -105,6 +113,17 @@ export function displayTimeCardData(side, appState, elements) {
     let windSpeed;
 
     const sideElements = elements[side];
+
+    sideElements.countryInitials.textContent = countryCode ?? '';
+    sideElements.countryDisplay.textContent = countryName ?? '';
+    sideElements.cityDisplay.textContent = cityName ?? '';
+    sideElements.timezoneAbbr.textContent = timezoneAbbr ?? '';
+    sideElements.dateDisplay.textContent = date ?? '';
+
+    setLeadingText(sideElements.card.querySelector('.timezone'), timezone);
+    setLeadingText(sideElements.timeDisplay, time);
+
+    sideElements.timeDisplay.querySelector('.period').textContent = timePeriod ?? '';
 
 }
 
