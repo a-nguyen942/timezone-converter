@@ -91,7 +91,19 @@ export function displayTimeCardData(side, appState, elements) {
     const countryCode = country?.code;
     const countryName = country?.name;
     const cityName = city?.name;
+    // const timezone;
+    // const timezoneAbbr;
+
+    // const time;
+    // const timePeriod;
+    // const date;
+
+    // const weatherStatus (later holds data such as sunny, rainy, etc.)
+    // const apparentTemp;
+    // const actualTemp;
+    // const windSpeed;
 
     const sideElements = elements[side];
     const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
+
 }
