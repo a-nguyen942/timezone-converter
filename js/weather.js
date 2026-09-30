@@ -17,7 +17,7 @@ export async function getLocalWeatherData(city) {
     return response.json();
 }
 
-function getWeatherIcon(weather)
+function getWeatherIcon(weatherCode)
 {
-
+    // based off the weather code, check weather-code-categories to see which icon we should display
 }
