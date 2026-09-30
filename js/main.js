@@ -67,7 +67,7 @@ const elements = {
 };
 
 // FUNCTIONS
-import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound } from './ui.js';
+import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound, displayTimeCardData } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
 import { getCurrentTimezoneData } from './timezone.js';
 
@@ -231,7 +231,7 @@ function attachDropdownListeners() {
                 saveSelectedCountry(firstDropdownChoice, side, type);
                 await saveSelectedCity(firstDropdownChoice, side, type);
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
-                displayTimeCardData();
+                displayTimeCardData(side, appState, elements);
             });
 
             // DROPDOWN BOXES
@@ -258,12 +258,8 @@ function attachDropdownListeners() {
                 saveSelectedCountry(dropdownChoice, side, type);
                 await saveSelectedCity(dropdownChoice, side, type);
 
-                const timezoneData = type === 'city'
-                    ? getCurrentTimezoneData(appState[side].timezone)
-                    : null;
-
                 selectDropdownChoice(dropdownChoice, input, dropdown);
-                displayTimeCardData();
+                displayTimeCardData(side, appState, elements);
             });
 
             input.addEventListener('keydown', (event) => {

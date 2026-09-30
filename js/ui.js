@@ -1,3 +1,5 @@
+import { getCurrentTimezoneData } from './timezone.js';
+
 // UI
 
 export const NO_RESULTS_MESSAGE = "No matches found";
@@ -81,7 +83,15 @@ function setRightSideToHyphens()
 
 }
 
-function displayTimeCardData(side, country, city)
-{
+export function displayTimeCardData(side, appState, elements) {
+    const country = appState[side].country;
+    const city = appState[side].city;
+    const timezone = appState[side].timezone;
 
+    const countryCode = country?.code;
+    const countryName = country?.name;
+    const cityName = city?.name;
+
+    const sideElements = elements[side];
+    const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
 }
