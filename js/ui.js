@@ -107,3 +107,8 @@ export function displayTimeCardData(side, appState, elements) {
     const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
 
 }
+
+function clearTimeCard(side)
+{
+    // clear respective timecard dom objects
+}
