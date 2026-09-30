@@ -87,24 +87,24 @@ export function displayTimeCardData(side, appState, elements) {
     const country = appState[side].country;
     const city = appState[side].city;
     const timezone = appState[side].timezone;
+    const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
 
     const countryCode = country?.code;
     const countryName = country?.name;
     const cityName = city?.name;
-    // const timezone;
-    // const timezoneAbbr;
+    const timezoneAbbr = timezoneData?.timezoneAbbreviation;
 
-    // const time;
-    // const timePeriod;
-    // const date;
 
-    // const weatherStatus (later holds data such as sunny, rainy, etc.)
-    // const apparentTemp;
-    // const actualTemp;
-    // const windSpeed;
+    const time = timezoneData?.time;
+    const timePeriod = timezoneData?.period;
+    const date = timezoneData?.date;
+
+    let weatherStatus; // later holds data such as sunny, rainy, etc.
+    let apparentTemp;
+    let actualTemp;
+    let windSpeed;
 
     const sideElements = elements[side];
-    const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
 
 }
 
