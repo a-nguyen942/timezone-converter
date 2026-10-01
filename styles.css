@@ -232,6 +232,7 @@ body {
 }
 
 .timezone-abbreviation {
+  margin-left: 0.5rem;
   color: #817b8a;
   font-size: 0.75em;
   letter-spacing: 0.04em;
