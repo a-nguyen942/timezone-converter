@@ -210,6 +210,10 @@ body {
   border-radius: 6px;
 }
 
+.country-initials:empty {
+  visibility: hidden;
+}
+
 .city {
   color: #eae8ee;
   margin-top: 32px;
