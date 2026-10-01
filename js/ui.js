@@ -97,13 +97,12 @@ export function displayTimeCardData(side, timeCardData, elements) {
         timezoneAbbr,
         time,
         timePeriod,
-        date
+        date,
+        weatherStatus,
+        apparentTemp,
+        actualTemp,
+        windSpeed
     } = timeCardData;
-
-    let weatherStatus; // later holds data such as sunny, rainy, etc.
-    let apparentTemp;
-    let actualTemp;
-    let windSpeed;
 
     const sideElements = elements[side];
 
@@ -119,4 +118,3 @@ export function displayTimeCardData(side, timeCardData, elements) {
     sideElements.timeDisplay.querySelector('.period').textContent = timePeriod ?? '';
 
 }
-

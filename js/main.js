@@ -70,6 +70,7 @@ const elements = {
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound, displayTimeCardData } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
 import { getCurrentTimezoneData } from './timezone.js';
+import { getLocalWeatherData } from './weather.js';
 
 async function initializeApp() {
     await loadCountryIndex();
@@ -107,11 +108,13 @@ async function saveSelectedCity(dropdownChoice, side, type) {
     }
 }
 
-function getTimeCardData(side) {
+async function getTimeCardData(side) {
     const country = appState[side].country;
     const city = appState[side].city;
     const timezone = appState[side].timezone;
     const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
+    const weatherData = city ? await getLocalWeatherData(city) : null;
+    const currentWeather = weatherData?.current;
 
     return {
         countryCode: country?.code,
@@ -121,7 +124,11 @@ function getTimeCardData(side) {
         timezoneAbbr: timezoneData?.timezoneAbbreviation,
         time: timezoneData?.time,
         timePeriod: timezoneData?.period,
-        date: timezoneData?.date
+        date: timezoneData?.date,
+        weatherStatus: currentWeather?.weather_code,
+        apparentTemp: currentWeather?.apparent_temperature,
+        actualTemp: currentWeather?.temperature_2m,
+        windSpeed: currentWeather?.wind_speed_10m
     };
 }
 
@@ -147,7 +154,7 @@ async function loadDefaultLocation(side, countryName, cityName) {
     elements[side].countryInput.value = country.name;
     elements[side].cityInput.value = city.name;
 
-    const timeCardData = getTimeCardData(side);
+    const timeCardData = await getTimeCardData(side);
     displayTimeCardData(side, timeCardData, elements);
 }
 
@@ -279,7 +286,7 @@ function attachDropdownListeners() {
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
 
                 if (type === 'city') {
-                    const timeCardData = getTimeCardData(side);
+                    const timeCardData = await getTimeCardData(side);
                     displayTimeCardData(side, timeCardData, elements);
                 }
             });
@@ -311,7 +318,7 @@ function attachDropdownListeners() {
                 selectDropdownChoice(dropdownChoice, input, dropdown);
 
                 if (type === 'city') {
-                    const timeCardData = getTimeCardData(side);
+                    const timeCardData = await getTimeCardData(side);
                     displayTimeCardData(side, timeCardData, elements);
                 }
             });
@@ -359,7 +366,7 @@ function attachDropdownListeners() {
                 selectDropdownChoice(dropdownChoice, input, dropdown);
 
                 if (type === 'city') {
-                    const timeCardData = getTimeCardData(side);
+                    const timeCardData = await getTimeCardData(side);
                     displayTimeCardData(side, timeCardData, elements);
                 }
             });
