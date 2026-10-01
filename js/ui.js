@@ -99,6 +99,7 @@ export function displayTimeCardData(side, timeCardData, elements) {
         timePeriod,
         date,
         weatherStatus,
+        weatherIconPath,
         apparentTemp,
         actualTemp,
         windSpeed

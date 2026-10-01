@@ -70,7 +70,7 @@ const elements = {
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound, displayTimeCardData } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
 import { getCurrentTimezoneData } from './timezone.js';
-import { getLocalWeatherData } from './weather.js';
+import { getLocalWeatherData, getWeatherIcon } from './weather.js';
 
 async function initializeApp() {
     await loadCountryIndex();
@@ -115,6 +115,8 @@ async function getTimeCardData(side) {
     const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
     const weatherData = city ? await getLocalWeatherData(city) : null;
     const currentWeather = weatherData?.current;
+    const weatherCode = currentWeather?.weather_code;
+    const weatherIconPath = weatherCode === undefined ? null : getWeatherIcon(weatherCode);
 
     return {
         countryCode: country?.code,
@@ -125,7 +127,8 @@ async function getTimeCardData(side) {
         time: timezoneData?.time,
         timePeriod: timezoneData?.period,
         date: timezoneData?.date,
-        weatherStatus: currentWeather?.weather_code,
+        weatherStatus: weatherCode,
+        weatherIconPath,
         apparentTemp: currentWeather?.apparent_temperature,
         actualTemp: currentWeather?.temperature_2m,
         windSpeed: currentWeather?.wind_speed_10m
