@@ -1,5 +1,4 @@
 // UI
-
 export const NO_RESULTS_MESSAGE = "No matches found";
 
 export function selectDropdownChoice(dropdownChoice, searchBar, dropdown) {
@@ -89,20 +88,17 @@ function setLeadingText(element, value) {
     }
 }
 
-export function displayTimeCardData(side, appState, elements, timezoneData) {
-    const country = appState[side].country;
-    const city = appState[side].city;
-    const timezone = appState[side].timezone;
-
-    const countryCode = country?.code;
-    const countryName = country?.name;
-    const cityName = city?.name;
-    const timezoneAbbr = timezoneData?.timezoneAbbreviation;
-
-
-    const time = timezoneData?.time;
-    const timePeriod = timezoneData?.period;
-    const date = timezoneData?.date;
+export function displayTimeCardData(side, timeCardData, elements) {
+    const {
+        countryCode,
+        countryName,
+        cityName,
+        timezone,
+        timezoneAbbr,
+        time,
+        timePeriod,
+        date
+    } = timeCardData;
 
     let weatherStatus; // later holds data such as sunny, rainy, etc.
     let apparentTemp;
@@ -124,7 +120,3 @@ export function displayTimeCardData(side, appState, elements, timezoneData) {
 
 }
 
-function clearTimeCard(side)
-{
-    // clear respective timecard dom objects
-}
