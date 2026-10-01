@@ -223,6 +223,15 @@ body {
   line-height: 1.15;
 }
 
+.city-placeholder {
+  display: block;
+  color: #817b8a;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
 .timezone,
 .date {
   color: #afabb8;
@@ -269,6 +278,12 @@ body {
 .weather-icon {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+}
+
+.weather-icon-image {
+  width: 44px;
+  height: 44px;
 }
 
 .wind-speed {

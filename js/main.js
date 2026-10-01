@@ -43,7 +43,12 @@ const elements = {
         cityDisplay: document.querySelector('.time-card-left .city'),
         timezoneAbbr: document.querySelector('.time-card-left .timezone-abbreviation'),
         timeDisplay: document.querySelector('.time-card-left .time'),
-        dateDisplay: document.querySelector('.time-card-left .date')
+        dateDisplay: document.querySelector('.time-card-left .date'),
+        weatherStatus: document.querySelector('.time-card-left .weather-status'),
+        weatherIcon: document.querySelector('.time-card-left .weather-icon'),
+        actualTemp: document.querySelector('.time-card-left .actual-temperature'),
+        apparentTemp: document.querySelector('.time-card-left .apparent-temperature'),
+        windSpeed: document.querySelector('.time-card-left .wind-speed')
     },
     right: {
         // Inputs & Controls
@@ -62,7 +67,12 @@ const elements = {
         cityDisplay: document.querySelector('.time-card-right .city'),
         timezoneAbbr: document.querySelector('.time-card-right .timezone-abbreviation'),
         timeDisplay: document.querySelector('.time-card-right .time'),
-        dateDisplay: document.querySelector('.time-card-right .date')
+        dateDisplay: document.querySelector('.time-card-right .date'),
+        weatherStatus: document.querySelector('.time-card-right .weather-status'),
+        weatherIcon: document.querySelector('.time-card-right .weather-icon'),
+        actualTemp: document.querySelector('.time-card-right .actual-temperature'),
+        apparentTemp: document.querySelector('.time-card-right .apparent-temperature'),
+        windSpeed: document.querySelector('.time-card-right .wind-speed')
     }
 };
 
@@ -70,7 +80,7 @@ const elements = {
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound, displayTimeCardData } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
 import { getCurrentTimezoneData } from './timezone.js';
-import { getLocalWeatherData, getWeatherIcon } from './weather.js';
+import { getLocalWeatherData, getWeatherIcon, getWeatherStatus } from './weather.js';
 
 async function initializeApp() {
     await loadCountryIndex();
@@ -117,6 +127,7 @@ async function getTimeCardData(side) {
     const currentWeather = weatherData?.current;
     const weatherCode = currentWeather?.weather_code;
     const weatherIconPath = weatherCode === undefined ? null : getWeatherIcon(weatherCode);
+    const weatherStatus = weatherCode === undefined ? null : getWeatherStatus(weatherCode);
 
     return {
         countryCode: country?.code,
@@ -127,7 +138,7 @@ async function getTimeCardData(side) {
         time: timezoneData?.time,
         timePeriod: timezoneData?.period,
         date: timezoneData?.date,
-        weatherStatus: weatherCode,
+        weatherStatus,
         weatherIconPath,
         apparentTemp: currentWeather?.apparent_temperature,
         actualTemp: currentWeather?.temperature_2m,

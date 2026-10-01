@@ -33,6 +33,8 @@ export async function getLocalWeatherData(city) {
         latitude: city.latitude,
         longitude: city.longitude,
         current: 'temperature_2m,apparent_temperature,weather_code,wind_speed_10m',
+        temperature_unit: 'fahrenheit',
+        wind_speed_unit: 'mph',
         timezone: city.timezone
     });
 
@@ -53,5 +55,15 @@ export function getWeatherIcon(weatherCode) {
         return null;
     }
 
-    return new URL(`../assets/weather/${weatherCategory.category}.svg`, import.meta.url).href;
+    return new URL(`../assets/weather/${weatherCategory}.svg`, import.meta.url).href;
+}
+
+export function getWeatherStatus(weatherCode) {
+    const weatherCategory = weatherCategories[weatherCode];
+
+    if (!weatherCategory) {
+        return null;
+    }
+
+    return weatherCategory.charAt(0).toUpperCase() + weatherCategory.slice(1);
 }

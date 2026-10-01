@@ -117,5 +117,21 @@ export function displayTimeCardData(side, timeCardData, elements) {
     setLeadingText(sideElements.timeDisplay, time);
 
     sideElements.timeDisplay.querySelector('.period').textContent = timePeriod ?? '';
+    sideElements.weatherStatus.textContent = weatherStatus ?? '';
+    sideElements.actualTemp.textContent = actualTemp == null ? '' : `Temperature: ${actualTemp}°F`;
+    sideElements.apparentTemp.textContent = apparentTemp == null ? '' : `Feels like: ${apparentTemp}°F`;
+    sideElements.windSpeed.textContent = windSpeed == null ? '' : `Wind speed: ${windSpeed} mph`;
+
+    sideElements.weatherIcon.replaceChildren();
+
+    if (weatherIconPath) {
+        const weatherIcon = document.createElement('img');
+
+        weatherIcon.className = 'weather-icon-image';
+        weatherIcon.src = weatherIconPath;
+        weatherIcon.alt = '';
+
+        sideElements.weatherIcon.append(weatherIcon);
+    }
 
 }
