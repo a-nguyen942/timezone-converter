@@ -12,6 +12,7 @@ const appState = {
         country: null,
         city: null,
         timezone: null,
+        currentWeather: null,
         recentCountries: [],
         recentCities: []
     },
@@ -19,6 +20,7 @@ const appState = {
         country: null,
         city: null,
         timezone: null,
+        currentWeather: null,
         recentCountries: [],
         recentCities: []
     },
@@ -87,6 +89,7 @@ async function initializeApp() {
     await loadDefaultLocation('left', 'United States', 'San Francisco');
     await loadDefaultLocation('right', 'United States', 'New York City');
     attachDropdownListeners();
+    startDataRefreshes();
 }
 
 function saveSelectedCountry(dropdownChoice, side, type) {
@@ -115,16 +118,23 @@ async function saveSelectedCity(dropdownChoice, side, type) {
     if (selectedCity) {
         appState[side].city = selectedCity;
         appState[side].timezone = selectedCity.timezone;
+        appState[side].currentWeather = null;
     }
 }
 
-async function getTimeCardData(side) {
+async function getTimeCardData(side, refreshWeather = false) {
     const country = appState[side].country;
     const city = appState[side].city;
     const timezone = appState[side].timezone;
     const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
-    const weatherData = city ? await getLocalWeatherData(city) : null;
-    const currentWeather = weatherData?.current;
+
+    if (city && (!appState[side].currentWeather || refreshWeather)) {
+        const weatherData = await getLocalWeatherData(city);
+
+        appState[side].currentWeather = weatherData.current;
+    }
+
+    const currentWeather = appState[side].currentWeather;
     const weatherCode = currentWeather?.weather_code;
     const weatherIconPath = weatherCode === undefined ? null : getWeatherIcon(weatherCode);
     const weatherStatus = weatherCode === undefined ? null : getWeatherStatus(weatherCode);
@@ -146,6 +156,28 @@ async function getTimeCardData(side) {
     };
 }
 
+async function refreshTimeCards(refreshWeather = false) {
+    await Promise.all(['left', 'right'].map(async (side) => {
+        if (!appState[side].city) {
+            return;
+        }
+
+        const timeCardData = await getTimeCardData(side, refreshWeather);
+
+        displayTimeCardData(side, timeCardData, elements);
+    }));
+}
+
+function startDataRefreshes() {
+    setInterval(() => {
+        refreshTimeCards();
+    }, 60 * 1000);
+
+    setInterval(() => {
+        refreshTimeCards(true);
+    }, 15 * 60 * 1000);
+}
+
 async function loadDefaultLocation(side, countryName, cityName) {
     const country = searchCountries(countryName)
         .find((result) => result.name === countryName);
@@ -164,6 +196,7 @@ async function loadDefaultLocation(side, countryName, cityName) {
     appState[side].country = country;
     appState[side].city = city;
     appState[side].timezone = city.timezone;
+    appState[side].currentWeather = null;
 
     elements[side].countryInput.value = country.name;
     elements[side].cityInput.value = city.name;
