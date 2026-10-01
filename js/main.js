@@ -231,7 +231,10 @@ function attachDropdownListeners() {
                 saveSelectedCountry(firstDropdownChoice, side, type);
                 await saveSelectedCity(firstDropdownChoice, side, type);
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
-                displayTimeCardData(side, appState, elements);
+
+                if (type === 'city') {
+                    displayTimeCardData(side, appState, elements);
+                }
             });
 
             // DROPDOWN BOXES
@@ -259,7 +262,10 @@ function attachDropdownListeners() {
                 await saveSelectedCity(dropdownChoice, side, type);
 
                 selectDropdownChoice(dropdownChoice, input, dropdown);
-                displayTimeCardData(side, appState, elements);
+
+                if (type === 'city') {
+                    displayTimeCardData(side, appState, elements);
+                }
             });
 
             input.addEventListener('keydown', (event) => {
@@ -292,7 +298,7 @@ function attachDropdownListeners() {
                 dropdownChoices[nextIndex].focus();
             });
 
-            dropdown.addEventListener('keydown', (event) => {
+            dropdown.addEventListener('keydown', async (event) => {
                 if (event.key !== 'Enter') return;
 
                 const dropdownChoice = event.target.closest('.country-recommendation, .city-recommendation');
@@ -303,6 +309,10 @@ function attachDropdownListeners() {
                 saveSelectedCountry(dropdownChoice, side, type);
                 await saveSelectedCity(dropdownChoice, side, type);
                 selectDropdownChoice(dropdownChoice, input, dropdown);
+
+                if (type === 'city') {
+                    displayTimeCardData(side, appState, elements);
+                }
             });
 
             wrapper.addEventListener('keydown', (event) => {
