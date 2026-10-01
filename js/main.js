@@ -105,6 +105,13 @@ async function saveSelectedCity(dropdownChoice, side, type) {
     }
 }
 
+function updateTimeCard(side) {
+    const timezone = appState[side].timezone;
+    const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
+
+    displayTimeCardData(side, appState, elements, timezoneData);
+}
+
 function attachDropdownListeners() {
     ['left', 'right'].forEach(side => {
         const sideElements = elements[side];
@@ -233,7 +240,7 @@ function attachDropdownListeners() {
                 selectDropdownChoice(firstDropdownChoice, input, dropdown);
 
                 if (type === 'city') {
-                    displayTimeCardData(side, appState, elements);
+                    updateTimeCard(side);
                 }
             });
 
@@ -264,7 +271,7 @@ function attachDropdownListeners() {
                 selectDropdownChoice(dropdownChoice, input, dropdown);
 
                 if (type === 'city') {
-                    displayTimeCardData(side, appState, elements);
+                    updateTimeCard(side);
                 }
             });
 
@@ -311,7 +318,7 @@ function attachDropdownListeners() {
                 selectDropdownChoice(dropdownChoice, input, dropdown);
 
                 if (type === 'city') {
-                    displayTimeCardData(side, appState, elements);
+                    updateTimeCard(side);
                 }
             });
 

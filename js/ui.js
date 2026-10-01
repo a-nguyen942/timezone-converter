@@ -1,5 +1,3 @@
-import { getCurrentTimezoneData } from './timezone.js';
-
 // UI
 
 export const NO_RESULTS_MESSAGE = "No matches found";
@@ -91,11 +89,10 @@ function setLeadingText(element, value) {
     }
 }
 
-export function displayTimeCardData(side, appState, elements) {
+export function displayTimeCardData(side, appState, elements, timezoneData) {
     const country = appState[side].country;
     const city = appState[side].city;
     const timezone = appState[side].timezone;
-    const timezoneData = timezone ? getCurrentTimezoneData(timezone) : null;
 
     const countryCode = country?.code;
     const countryName = country?.name;
