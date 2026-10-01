@@ -317,11 +317,42 @@ body {
 }
 
 .divider {
+  position: relative;
   width: 1px;
   flex-shrink: 0;
   margin-block: 48px;
   background-color: #302c36;
   box-shadow: none;
+}
+
+.swap-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  place-items: center;
+  color: #c7b6e8;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: #1a181f;
+  border: 1px solid #4c425b;
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.swap-button:hover {
+  color: #eae8ee;
+  background-color: #282331;
+  border-color: #756589;
+}
+
+.swap-button:focus-visible {
+  outline: 2px solid #c7b6e8;
+  outline-offset: 3px;
 }
 
 @media (max-width: 700px) {

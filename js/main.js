@@ -78,6 +78,8 @@ const elements = {
     }
 };
 
+const swapButton = document.querySelector('.swap-button');
+
 // FUNCTIONS
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound, displayTimeCardData } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
@@ -88,7 +90,7 @@ async function initializeApp() {
     await loadCountryIndex();
     await loadDefaultLocation('left', 'United States', 'San Francisco');
     await loadDefaultLocation('right', 'United States', 'New York City');
-    attachDropdownListeners();
+    attachEventListeners();
     startDataRefreshes();
 }
 
@@ -205,7 +207,7 @@ async function loadDefaultLocation(side, countryName, cityName) {
     displayTimeCardData(side, timeCardData, elements);
 }
 
-function attachDropdownListeners() {
+function attachEventListeners() {
     ['left', 'right'].forEach(side => {
         const sideElements = elements[side];
 
@@ -434,6 +436,23 @@ function attachDropdownListeners() {
                 hideDeleteButton(clearBtn);
             });
         });
+    });
+
+    if (!swapButton) {
+        return;
+    }
+
+    swapButton.addEventListener('click', async () => {
+        ['country', 'city', 'timezone', 'currentWeather'].forEach((property) => {
+            [appState.left[property], appState.right[property]] = [appState.right[property], appState.left[property]];
+        });
+
+        ['left', 'right'].forEach((side) => {
+            elements[side].countryInput.value = appState[side].country?.name ?? '';
+            elements[side].cityInput.value = appState[side].city?.name ?? '';
+        });
+
+        await refreshTimeCards();
     });
 }
 
