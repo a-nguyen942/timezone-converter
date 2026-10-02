@@ -207,6 +207,14 @@ async function loadDefaultLocation(side, countryName, cityName) {
     displayTimeCardData(side, timeCardData, elements);
 }
 
+function getHypotheticalRT(dateLeft, timeLeft, timeDiff)
+{
+    // call convertTimeTo24Hr(time) and store result in a variable for timeLeft
+    // call calculateHypotheticalRT(dateLeft, newtimeLeft, timeDiff) and store object
+    // call convertTimeTo12Hr on the timeRight in our object
+    // return object
+}
+
 function attachEventListeners() {
     ['left', 'right'].forEach(side => {
         const sideElements = elements[side];

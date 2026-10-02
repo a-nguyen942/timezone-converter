@@ -21,3 +21,26 @@ export function getCurrentTimezoneData(timezone, city) {
         timezoneAbbreviation: getPartValue('timeZoneName')
     };
 }
+
+function calculateTimezoneDifference(timeLeft, timeRight)
+{
+    // define variable to hold the numerical difference we get
+    // remember timeLeft holds the truth
+    // return integer time difference
+}
+
+function calculateHypotheticalRT(timeRight, timeDiff)
+{
+    // take time difference to calculate new times and date accordingly
+    // return object giving time and date accordingly
+}
+
+function convertTimeTo24Hr(time)
+{
+    // take time and convert to 24hr version, return a string
+}
+
+function convertTimeTo12Hr(time)
+{
+    // take 24hr time and convert to 12hr time with am/pm
+}
