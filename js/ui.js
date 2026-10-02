@@ -75,11 +75,6 @@ export function displayNoResultsFound(dropdown) {
     showDropdownMenu(dropdown);
 }
 
-function setRightSideToHyphens()
-{
-
-}
-
 function setLeadingText(element, value) {
     if (element.firstChild?.nodeType === Node.TEXT_NODE) {
         element.firstChild.textContent = value ?? '';
