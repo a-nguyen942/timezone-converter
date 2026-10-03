@@ -130,3 +130,17 @@ export function displayTimeCardData(side, timeCardData, elements) {
     }
 
 }
+
+export function displayHypoTimeCardData(side, hypotheticalTimeData, elements) {
+    const {
+        time,
+        timePeriod,
+        date
+    } = hypotheticalTimeData;
+
+    const sideElements = elements[side];
+
+    sideElements.dateDisplay.textContent = date ?? '';
+    setLeadingText(sideElements.timeDisplay, time);
+    sideElements.timeDisplay.querySelector('.period').textContent = timePeriod ?? '';
+}
