@@ -57,10 +57,50 @@ export function calculateTimeDiff(leftTimezone, rightTimezone, hypotheticalDateT
     return rightOffset - leftOffset;
 }
 
-function calculateHypotheticalRT(timeRight, timeDiff)
+export function calculateHypotheticalRT(dateLeft, timeLeft, timeDiff)
 {
     // take time difference to calculate new times and date accordingly
     // return object giving time and date accordingly
+    const [year, month, day] = dateLeft.split('-').map(Number);
+    const [hour, minute] = timeLeft.split(':').map(Number);
+
+    if (
+        !Number.isInteger(year) ||
+        !Number.isInteger(month) ||
+        !Number.isInteger(day) ||
+        !Number.isInteger(hour) ||
+        !Number.isInteger(minute) ||
+        !Number.isInteger(timeDiff) ||
+        month < 1 || month > 12 ||
+        day < 1 || day > 31 ||
+        hour < 0 || hour > 23 ||
+        minute < 0 || minute > 59
+    ) {
+        throw new Error('Date, time, and time difference must be valid.');
+    }
+
+    const leftDateTime = new Date(year, month - 1, day, hour, minute);
+
+    if (
+        leftDateTime.getFullYear() !== year ||
+        leftDateTime.getMonth() !== month - 1 ||
+        leftDateTime.getDate() !== day
+    ) {
+        throw new Error('Date must use a valid calendar day.');
+    }
+
+    const rightDateTime = new Date(year, month - 1, day, hour, minute + timeDiff);
+
+    const dateFormatter = new Intl.DateTimeFormat('en-US', {
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    return {
+        time: `${String(rightDateTime.getHours()).padStart(2, '0')}:${String(rightDateTime.getMinutes()).padStart(2, '0')}`,
+        date: dateFormatter.format(rightDateTime)
+    };
 }
 
 export function convertTimeTo24Hr(time, period)
