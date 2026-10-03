@@ -1,20 +1,15 @@
-/*
-    TODO:
-        Work on search logic for cities
-        Work on recentCountries/recentCities logic
-        Finish being able to select cities in the searchBar
-        Work on timezone calculation/differences
-        Add weatherAPI using longitude and latitude
-*/
-
 const appState = {
+    isHypotheticalTime: false,
     left: {
         country: null,
         city: null,
         timezone: null,
         currentWeather: null,
         recentCountries: [],
-        recentCities: []
+        recentCities: [],
+        hypotheticalDate: null,
+        hypotheticalTime: null,
+        hypotheticalPeriod: null
     },
     right: {
         country: null,
@@ -83,7 +78,7 @@ const swapButton = document.querySelector('.swap-button');
 // FUNCTIONS
 import { showDropdownMenu, hideDropdownMenu, showDeleteButton, hideDeleteButton, selectDropdownChoice, loadCountries, loadCities, displayNoResultsFound, displayTimeCardData } from './ui.js';
 import { loadCountryIndex, searchCountries, searchCities, clearSearchBarText } from './search.js';
-import { getCurrentTimezoneData } from './timezone.js';
+import { getCurrentTimezoneData, convertTimeTo24Hr, calculateHypotheticalRT, convertTimeTo12Hr } from './timezone.js';
 import { getLocalWeatherData, getWeatherIcon, getWeatherStatus } from './weather.js';
 
 async function initializeApp() {
@@ -207,12 +202,23 @@ async function loadDefaultLocation(side, countryName, cityName) {
     displayTimeCardData(side, timeCardData, elements);
 }
 
-function getHypotheticalRT(dateLeft, timeLeft, timeDiff)
+function getHypotheticalRT(dateLeft, timeLeft, timePeriod, timeDiff)
 {
     // call convertTimeTo24Hr(time) and store result in a variable for timeLeft
+    const timeLeft24Hr = convertTimeTo24Hr(timeLeft, timePeriod);
+
     // call calculateHypotheticalRT(dateLeft, newtimeLeft, timeDiff) and store object
+    const rightTimeData = calculateHypotheticalRT(dateLeft, timeLeft24Hr, timeDiff);
+
     // call convertTimeTo12Hr on the timeRight in our object
+    const rightTime12Hr = convertTimeTo12Hr(rightTimeData.time);
+
     // return object
+    return {
+        time: rightTime12Hr.time,
+        timePeriod: rightTime12Hr.period,
+        date: rightTimeData.date
+    };
 }
 
 function attachEventListeners() {
