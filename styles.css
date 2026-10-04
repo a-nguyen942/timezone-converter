@@ -255,6 +255,47 @@ body {
   margin-top: 20px;
 }
 
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.date-row .date {
+  margin-top: 0;
+}
+
+.time-card-right .date {
+  min-height: 29px;
+}
+
+.custom-time-date {
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 0;
+  margin-right: 24px;
+  padding: 7px 11px;
+  color: #c7b6e8;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  background-color: #1a181f;
+  border: 1px solid #4c425b;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+.custom-time-date:hover {
+  color: #eae8ee;
+  background-color: #282331;
+  border-color: #756589;
+}
+
 .weather {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
